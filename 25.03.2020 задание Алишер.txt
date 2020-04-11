@@ -1,0 +1,199 @@
+1)
+SELECT 
+berikkaliyev_teacher.user_id,
+berikkaliyev_user.lastname AS lastname,
+berikkaliyev_otdel.name AS otdel,
+berikkaliyev_gender.name as gender
+
+FROM `berikkaliyev_teacher` 
+
+JOIN berikkaliyev_user
+ON berikkaliyev_teacher.user_id=berikkaliyev_user.user_id
+
+JOIN berikkaliyev_otdel
+ON berikkaliyev_teacher.otdel_id=berikkaliyev_otdel.otdel_id
+
+JOIN berikkaliyev_gender
+ON berikkaliyev_user.gender_id=berikkaliyev_gender.gender_id
+
+WHERE berikkaliyev_otdel.otdel_id='1'
+
+2)
+SELECT 
+berikkaliyev_student.user_id,
+berikkaliyev_user.lastname AS lastname,
+berikkaliyev_gruppa.name AS gruppa,
+berikkaliyev_special.name AS special,
+berikkaliyev_otdel.name AS otdel 
+
+FROM `berikkaliyev_student` 
+
+JOIN berikkaliyev_user
+ON berikkaliyev_student.user_id=berikkaliyev_user.user_id
+
+JOIN berikkaliyev_gruppa
+ON berikkaliyev_student.gruppa_id=berikkaliyev_gruppa.gruppa_id
+
+JOIN berikkaliyev_special
+ON berikkaliyev_gruppa.special_id=berikkaliyev_special.special_id
+
+JOIN berikkaliyev_otdel
+ON berikkaliyev_special.otdel_id=berikkaliyev_otdel.otdel_id
+
+WHERE berikkaliyev_otdel.otdel_id='1'
+
+
+3)
+SELECT 
+berikkaliyev_course.course_id,
+berikkaliyev_course.name,
+berikkaliyev_special.name AS special,
+berikkaliyev_course.hours,
+berikkaliyev_otdel.name AS otdel
+
+FROM `berikkaliyev_course` 
+JOIN berikkaliyev_special
+ON berikkaliyev_course.special_id=berikkaliyev_special.special_id
+
+JOIN berikkaliyev_otdel
+ON berikkaliyev_special.otdel_id=berikkaliyev_otdel.otdel_id
+
+WHERE berikkaliyev_otdel.otdel_id='2'
+
+4)
+SELECT 
+berikkaliyev_gruppa.gruppa_id,
+berikkaliyev_gruppa.name,
+berikkaliyev_special.name AS special ,
+berikkaliyev_gruppa.date_begin,
+berikkaliyev_gruppa.date_end
+
+FROM `berikkaliyev_gruppa` 
+JOIN berikkaliyev_special
+ON berikkaliyev_gruppa.special_id=berikkaliyev_special.special_id
+
+where berikkaliyev_special.special_id='1'
+
+5)
+SELECT
+berikkaliyev_user.lastname,
+berikkaliyev_gruppa.name,
+berikkaliyev_course.name
+
+FROM berikkaliyev_student
+INNER JOIN berikkaliyev_gruppa
+ON berikkaliyev_student.gruppa_id = berikkaliyev_gruppa.gruppa_id
+
+INNER JOIN berikkaliyev_user
+ON berikkaliyev_student.user_id = berikkaliyev_user.User_id
+
+INNER JOIN berikkaliyev_graduate
+ON berikkaliyev_graduate.gruppa_id = berikkaliyev_gruppa.gruppa_id
+
+INNER JOIN berikkaliyev_course
+ON berikkaliyev_graduate.course_id = berikkaliyev_course.course_id
+
+6)
+SELECT
+berikkaliyev_user.lastname,
+berikkaliyev_course.name,
+berikkaliyev_course.hours,
+berikkaliyev_gruppa.name
+
+FROM berikkaliyev_teacher
+INNER JOIN berikkaliyev_user
+ON berikkaliyev_teacher.user_id =berikkaliyev_user.User_id
+  
+INNER JOIN berikkaliyev_graduate
+ON berikkaliyev_graduate.user_id =berikkaliyev_teacher.user_id
+  
+INNER JOIN berik_graduate_time
+ON berik_graduate_time.graduate_id =berikkaliyev_graduate.graduate_id
+  
+INNER JOIN berik_lesson_num
+ON berik_graduate_time.lesson_num_id =berik_lesson_num.lesson_num_id
+
+INNER JOIN berikkaliyev_course
+ON berikkaliyev_graduate.course_id =berikkaliyev_course.course_id
+
+INNER JOIN berikkaliyev_gruppa
+ON berikkaliyev_graduate.gruppa_id = berikkaliyev_gruppa.gruppa_id
+
+WHERE berik_lesson_num.time_lesson between '08:30:00' AND '15:00:00'
+
+7)
+SELECT
+berikkaliyev_otdel.name,
+COUNT(berikkaliyev_otdel.name)
+
+FROM berikkaliyev_student
+INNER JOIN berikkaliyev_user
+ON berikkaliyev_student.user_id = berikkaliyev_user.User_id
+  
+INNER JOIN berikkaliyev_gruppa
+ON berikkaliyev_student.gruppa_id = berikkaliyev_gruppa.gruppa_id
+  
+INNER JOIN berikkaliyev_special
+ON berikkaliyev_gruppa.special_id = berikkaliyev_special.special_id
+
+INNER JOIN berikkaliyev_otdel
+ON berikkaliyev_special.otdel_id = berikkaliyev_otdel.otdel_id
+
+GROUP BY berikkaliyev_otdel.name
+         
+8)
+SELECT
+berikkaliyev_gruppa.name,
+COUNT(berikkaliyev_course.course_id)
+
+FROM berikkaliyev_gruppa
+INNER JOIN berikkaliyev_special
+ON berikkaliyev_gruppa.special_id =berikkaliyev_special.special_id
+
+INNER JOIN berikkaliyev_course
+ON berikkaliyev_course.special_id =berikkaliyev_special.special_id
+
+GROUP BY berikkaliyev_course.course_id
+
+9)
+SELECT DISTINCT
+berikkaliyev_user.lastname,
+berikkaliyev_user.firstname,
+berikkaliyev_user.patronomic
+
+FROM berikkaliyev_teacher
+INNER JOIN berikkaliyev_otdel
+ON berikkaliyev_teacher.otdel_id = berikkaliyev_otdel.otdel_id
+
+INNER JOIN berikkaliyev_special
+ON berikkaliyev_special.otdel_id = berikkaliyev_otdel.otdel_id
+
+INNER JOIN berikkaliyev_user
+ON berikkaliyev_teacher.user_id = berikkaliyev_user.User_id
+
+INNER JOIN berikkaliyev_course
+ON berikkaliyev_course.special_id = berikkaliyev_special.special_id
+WHERE berikkaliyev_course.special_id IS /*not*/ null
+
+10)
+SELECT
+berikkaliyev_course.name
+
+FROM berikkaliyev_graduate
+INNER JOIN berikkaliyev_course
+ON berikkaliyev_graduate.course_id = berikkaliyev_course.course_id
+
+WHERE berikkaliyev_course.special_id IS NULL
+
+11)
+SELECT
+berikkaliyev_special.name
+
+FROM berikkaliyev_course
+INNER JOIN berikkaliyev_special
+ON berikkaliyev_course.special_id = berikkaliyev_special.special_id
+
+INNER JOIN berikkaliyev_graduate
+ON berikkaliyev_graduate.course_id = berikkaliyev_course.course_id
+
+WHERE berikkaliyev_graduate.course_id IS NULL
