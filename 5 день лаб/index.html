@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=J6hyC8CwTsa3qjTVkc0xFzBsyFCBAQvbHAQBPWMABuCjJdMD10IjH0nKGnD2SU-m2iCgyW8pFechFuadM_C_3ZF7Syoom56NegK5UX5X-20s-blm1FvmDcypGHLsq9kaul34O1udte-UNJukweu0Rg" charset="UTF-8"></script><script type="text/javascript" src="/696CF190-6DC5-184E-9F88-F62DE54B8851/main.js" charset="UTF-8"></script><script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>КаHкулятор</title>
+</head>
+<body>
+    <header>
+        <h1 class="1">Расчет ЗП</h1>
+    </header>
+    <div id="app">
+    <form  @submit.prevent="checkForm" method="POST">
+    <div >  
+        <p v-if="errors.length" class = "error">
+            <b>ERROR:</b>
+            <ul>
+              <li v-for="error in errors">{{ error }}</li>
+            </ul>
+          </p>
+        
+          <div>
+            <div class="grid">
+                    <div class="first">
+                        <label class="pl">- ввод оклада <input type="text" class="inp1" v-model="txt1"></label><br>
+                        <label class="pl">- ввод премии<input type="text" class="inp2" v-model="txt2"></label><br>
+                        <label class="pl">- ввод районного коэфф. <input type="text" class="inp3 " v-model="txt3"></label><br>
+                        <label class="pl">- ввод рабочих дней в месяце<input type="text" class="inp4" v-model="txt4"></label><br>
+                        <label class="pl">- ввод отработанных дней в месяце<input type="text" class="inp5" v-model="txt5"></label><br>
+                    </div>
+                    <button class="btn" @click="calc1()">Расчет ЗП</button>
+                    
+                    <div>
+                       
+                            <p>Результаты вычислений</p>
+                        <label class="pl">- вывод полной ЗП <textarea cols="22" rows="2" readonly class="txt1" v-model="result1">{{result1}}</textarea> </label><br>
+                        <label class="pl">- вывод НДФЛ 13% <textarea cols="22" rows="2" readonly class="txt2" v-model="result2">{{result2}}</textarea> </label><br>
+                        <label class="pl">- вывод ЗП на руки<textarea cols="22" rows="2" readonly class="txt3" v-model="result3">{{result3}}</textarea> </label><br>
+                       
+                    </div>
+               
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+</body>
+    <script src="script.js"></script>
+</html>
