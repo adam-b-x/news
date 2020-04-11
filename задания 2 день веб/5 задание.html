@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Дан исходный код:var a = [5, 12];</title>
+</head>
+<body>
+	<script>
+		var a = [5, 12];
+        var b = [];
+        a[99] = 7;
+
+        var length = a.length;
+        var num;
+
+        for(var i = 0; i < length; i++){
+    num = a[i];
+
+    if(num != null){
+        b.push(num * num);
+         }
+     }
+
+    console.log(b);
+	</script>
+	
+</body>
+</html>

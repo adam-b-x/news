@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function getDate(){
+        let mydate = '25-02-2012';
+        mydate = new Date(mydate.replace(/^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]|[1][0-2])[-]([0-9]{4}|[0-9]{2})$/, '$3-$2-$1'));
+        console.log(mydate.toDateString());
+     }
+	</script>
+	
+</body>
+</html>

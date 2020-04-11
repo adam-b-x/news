@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Создайте пустой объект book1</title>
+</head>
+<body>
+	<script>
+	    var book1 = {};
+	    book1.title = 'Путешественник в Программировании';
+	    book1.pubYear = '2020';
+	    book1.price = '$200';
+
+	    var book2 = {
+	    	title : "Моряк",
+	    	pubYear : '1928',
+	    	price : '$100'
+	    }
+
+	    for(var o in book1){
+	    	console.log(o + " - " + book1[o]);
+	    }
+
+	    for(var o in book2){
+	    	console.log(o + " - " + book2[o]);
+	    }
+	</script>
+	
+</body>
+</html>

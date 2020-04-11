@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Сделайте функцию inArray</title>
+</head>
+<body>
+	<script>
+		function inArray(Where, Find)
+{
+var arrNew = Where.split(' '); // <- Для изменения значения на true, введите любой текст
+var res; 
+for(var i=0; i<arrNew.length; i++)
+{
+if(arrNew[i] == Find)
+{
+res = true;
+}
+}
+
+if(res == undefined) 
+{
+res = false;
+}
+return res;
+}
+
+var str = 'функция первым параметром должна принимать текст элемента а вторым - массив в котором делается поиск';
+
+var toSearch = 'массив';
+
+alert(inArray(str, toSearch));
+	</script>
+	
+</body>
+</html>
