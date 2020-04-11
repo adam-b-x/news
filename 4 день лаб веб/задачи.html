@@ -1,0 +1,183 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ES6</title>
+<script type="text/javascript">
+/*
+Задача 1. Сделайте функцию, которая будет генерировать случайные числа от 1 до 10. Сделайте так, чтобы сгенерированное число было задержкой функции setTimeout в секундах. Оберните все это в промис. Пусть промис выполнится успешно, если сгенерировано число от 1 до 5, и с ошибкой - если от 6 до 10.
+
+Задача 2. Сделайте цепочку из трех промисов. Пусть первый промис возвращает число. Сделайте так, чтобы каждый последующий промис через 3 секунды возводил в квадрат результат предыдущего промиса. После окончания манипуляций выведите число алертом на экран.
+
+Задача 3.Сделайте 3 промиса, в каждом из которых расположена функция setTimeout со случайно задержкой от 1 до 5 секунд. Пусть первый промис возвращает число 1, второй - число 2, третий - число 3. С помощью Promise.race дождитесь загрузки первого сработавшего промиса и выведите результат его работы на экран.
+
+Задача 4.Сделайте функцию getNum1, которая возвращает промис, который с задержкой в 3 секунды выведет случайное число от 1 до 5. Сделайте также функцию getNum2, которая возвращает промис, который с задержкой в 5 секунд выведет случайное число от 6 до 10. Создайте async функцию, которая с помощью await будет дожидаться результата getNum1, затем будет дожидаться результата getNum2, а затем найдет сумму полученных чисел и выведет на экран.
+
+Задача 5. Реализуйте класс Worker (Работник), который будет иметь следующие свойства: name (имя), surname (фамилия), rate (ставка за день работы), days (количество отработанных дней). Сделайте все его свойства приватными, а для их чтения сделайте методы-геттеры. Для свойства rate и для свойства days сделайте еще и методы-сеттеры. Также класс должен иметь метод getSalary(), который будет выводить зарплату работника. Зарплата - это произведение (умножение) ставки rate на количество отработанных дней days.
+Класс будет работать так:
+var worker = new Worker('Иван', 'Иванов', 10, 31);
+console.log(worker.getRate()); //выведет 10
+console.log(worker.getDays()); //выведет 31
+console.log(worker.getSalary()); //выведет 310 - то есть 10*31
+//Теперь используем сеттер:
+worker.setRate(20); //увеличим ставку
+worker.setDays(10); //уменьшим дни
+console.log(worker.getSalary()); //выведет 200 - то есть 20*10
+*/
+let promise = new Promise((resolve, reject) => {
+let rand = getRandom(10);
+setTimeout(() => {
+if (rand >= 1 && rand <= 5)
+resolve('result')
+else if (rand >= 6 && rand <= 10)
+reject('error');
+}, rand * 1000);
+});
+
+promise.then(
+result => alert('result'),
+error => alert('error')
+);
+
+function getRandom(num) {
+return Math.floor(Math.random() * num);
+}
+
+let promise = new Promise((resolve, reject) =>
+setTimeout(() => {
+resolve(10);
+}, 3000)
+);
+
+promise.then(
+(result) =>
+new Promise((resolve, reject) =>
+setTimeout(() => {
+resolve(Math.pow(result, 2));
+}, 3000)
+)
+).then(
+(result) =>
+new Promise((resolve, reject) =>
+setTimeout(() => {
+resolve(Math.pow(result, 2));
+}, 3000)
+)
+).then(
+(result) =>
+alert(result)
+);
+
+let array = [
+new Promise((resolve, reject) => {
+setTimeout(
+() => resolve(1)
+, getRand(5) * 1000)
+}),
+new Promise((resolve, reject) => {
+setTimeout(
+() => resolve(2)
+, getRand(5) * 1000)
+}),
+new Promise((resolve, reject) => {
+setTimeout(
+() => resolve(3)
+, getRand(5) * 1000)
+}),
+];
+
+Promise.race(array).then(
+result => console.log(result)
+);
+
+function getRand(num) {
+return Math.floor(Math.random() * num);
+}
+function getNum1() {
+return new Promise(resolve =>
+setTimeout(
+() => resolve(getRandomNum(1, 5))
+, 3000)
+)
+}
+
+function getNum2() {
+return new Promise(resolve =>
+setTimeout(
+() => resolve(getRandomNum(6, 10))
+, 5000)
+)
+}
+
+async function getNumbers() {
+let num1 = await getNum1();
+let num2 = await getNum2();
+console.log(num1 + num2);
+}
+
+getNumbers();
+
+function getRandomNum(min, max) {
+return Math.floor(Math.random() * (max - min + 1) + min);
+}
+class Worker {
+constructor(name, surname, rate, days) {
+this.name = name;
+ 
+this.surname = surname;
+this.rate = rate;
+this.days = days;
+}
+getSalary() {
+return this.rate * this.days;
+}
+
+}
+
+let worker = new Worker('Иван', 'Иванов', 10, 31);
+
+console.log(worker.name);
+console.log(worker.surname);
+console.log(worker.rate);
+console.log(worker.days);
+console.log(worker.getSalary());
+
+//Модифицируйте класс Worker из предыдущей задачи следующим образом: сделайте все его свойства приватными, а для их чтения сделайте методы-геттеры. Наш класс теперь будет работать так:
+
+class Worker {
+constructor(name, surname, rate, days) {
+this._name = name;
+this._surname = surname;
+this._rate = rate;
+this._days = days;
+}
+
+getName() {
+return this._name;
+}
+
+getSurname() {
+return this._surname;
+}
+
+getRate() {
+return this._rate;
+}
+
+getDays() {
+return this._days;
+}
+
+getSalary() {
+return this._rate * this._days;
+}
+
+}
+
+let worker = new Worker('Иван', 'Иванов', 10, 31);
+
+console.log(worker.getName());
+console.log(worker.getSurname());
+console.log(worker.getRate());
+console.log(worker.getDays());
+console.log(worker.getSalary());
