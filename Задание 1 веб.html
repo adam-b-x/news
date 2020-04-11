@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+</head>
+<body>
+
+<script>
+//1. 
+      var result = 1;
+      var counter = 0;
+          while (counter < 10) {
+      result = result * 2;
+counter++;
+}
+document.write(result);
+
+//2. 
+      var result2 = 1;
+      var counter = 0;
+          for (counter = 0; counter < 10; counter++) {
+      result2 = result2 * 2;
+}
+document.write(result2);
+
+//3.
+      let age = prompt("Сколько вам лет?");
+          if(age <= 17){
+          alert("Вам работать еще рано - учитесь");
+}
+       else if (age <= 59){
+          alert("Вам еще работать и работать");
+}
+       else alert("Вам пора на пенсию");
+
+//4.
+       for(var i = 1; i < 10; i++) {
+       for(var j = 1; j <= i; j++) {
+document.write(i);
+}
+document.write('<br>');
+}
+
+//5.
+      var num = 3;
+      switch (num) {
+       case 1:
+         var result = ['Зима'];
+         break;
+       case 2:
+         result = ['Весна'];
+         break;
+       case 3:
+         result = ['Лето'];
+        break;
+       case 4:
+         result = ['Осень'];
+        break
+}
+alert(result);
+
+</script>
+</body>
+</html>
